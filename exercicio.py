@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 
 GRAPH = {
     "Pelotas": {"Camaquã": 150, "Rio Grande": 55, "Bagé": 180, "Santa Maria": 370},
@@ -54,6 +55,24 @@ def dfs(grafo, inicio, objetivo):
 
     return None, passos
 
+def dijkstra(grafo, inicio, objetivo):
+    fila = [(0, inicio, [inicio])]  # (custo, nó atual, caminho)
+    visitados = set()
+
+    while fila:
+        custo, atual, caminho = heapq.heappop(fila)
+        print(f"[Dijkstra] Visitando: {atual} | Custo até agora: {custo} km | Caminho: {caminho}")
+
+        if atual == objetivo:
+            return caminho, custo
+
+        if atual not in visitados:
+            visitados.add(atual)
+            for vizinho, peso in grafo[atual].items():
+                if vizinho not in visitados:
+                    heapq.heappush(fila, (custo + peso, vizinho, caminho + [vizinho]))
+    return None, float("inf")
+
 
 inicio = "Pelotas"
 objetivo = "Porto Alegre"
@@ -67,3 +86,14 @@ print("\n==== DFS =====")
 caminho_dfs, passos_dfs = dfs(GRAPH, inicio, objetivo)
 print("Caminho final (DFS):", " -> ".join(caminho_dfs))
 print("Passos DFS:", passos_dfs)
+
+
+print("\n===== Executando Dijkstra =====")
+caminho_dij, custo_dij = dijkstra(GRAPH, inicio, objetivo)
+print("Caminho final (Dijkstra):", " -> ".join(caminho_dij))
+print("Custo total:", custo_dij, "km")
+
+print("\n===== Comparação Final =====")
+print(f"BFS -> Caminho: {' -> '.join(caminho_bfs)}, Passos: {passos_bfs}")
+print(f"DFS -> Caminho: {' -> '.join(caminho_dfs)}, Passos: {passos_dfs}")
+print(f"Dijkstra -> Caminho: {' -> '.join(caminho_dij)}, Custo: {custo_dij} km")
