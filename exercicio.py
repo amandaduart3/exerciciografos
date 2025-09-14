@@ -55,9 +55,6 @@ def dfs(grafo, inicio, objetivo):
     return None, passos
 
 
-# -----------------------------
-# Execução
-# -----------------------------
 inicio = "Pelotas"
 objetivo = "Porto Alegre"
 
