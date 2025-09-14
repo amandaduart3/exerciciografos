@@ -88,7 +88,7 @@ print("Caminho final (DFS):", " -> ".join(caminho_dfs))
 print("Passos DFS:", passos_dfs)
 
 
-print("\n===== Executando Dijkstra =====")
+print("\n==== Dijkstra =====")
 caminho_dij, custo_dij = dijkstra(GRAPH, inicio, objetivo)
 print("Caminho final (Dijkstra):", " -> ".join(caminho_dij))
 print("Custo total:", custo_dij, "km")
